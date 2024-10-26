@@ -1,0 +1,27 @@
+1. Connect to PostgreSQL
+psql --username=freecodecamp --dbname=postgres
+
+2. You should create a database named `worldcup`
+CREATE DATABASE worldcup;
+
+3. You should **connect to your worldcup database** and then create `teams` and `games` tables
+\c worldcup
+
+4. Your `teams` table should have a `team_id` column that is a type of `SERIAL` and is the primary key, and a `name` column that has to be `UNIQUE`
+CREATE TABLE teams(
+team_id serial PRIMARY KEY,
+name VARCHAR NOT NULL UNIQUE
+);
+
+5. Your `games` table should have a `game_id` column that is a type of `SERIAL` and is the primary key, a `year` column of type `INT`, and a `round` column of type `VARCHAR`
+CREATE TABLE games(
+game_id serial PRIMARY KEY,
+year int NOT NULL,
+round VARCHAR NOT NULL,
+winner_id serial,
+opponent_id serial,
+winner_goals int NOT NULL,
+opponent_goals int NOT NULL,
+FOREIGN KEY(winner_id) REFERENCES teams(team_id),
+FOREIGN KEY(opponent_id) REFERENCES teams(team_id)
+);
